@@ -1,7 +1,7 @@
 // main.tsx
 import ReactDOM from 'react-dom/client';
 import { ApolloProvider } from '@apollo/client';
-import client from './apolloClient'; // Import your Apollo Client
+import client from './graphql/apolloClient'; // Adjust the path if necessary 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 
