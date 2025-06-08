@@ -7,7 +7,7 @@ const Nav: React.FC = () => {
     <nav>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/">Candidate Search</Link> {/* Link to the main page */}
         </li>
         <li>
           <Link to="/about">About</Link>
