@@ -25,7 +25,7 @@ export const SEARCH_CANDIDATES = gql`
     candidates(searchTerm: $searchTerm) {
       name
       username
-      // Add any other fields you need
+      # Ensure to include necessary fields as per your schema
     }
   }
 `;
@@ -37,7 +37,7 @@ export const SAVE_CANDIDATE = gql`
       _id
       name
       username
-      // Add any other fields you need to return after saving
+      # Ensure to include necessary fields as per your schema
     }
   }
 `;

@@ -1,9 +1,10 @@
 import { Outlet, BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Nav from './components/Nav';
-import CandidateSearch from './pages/CandidateSearch'; // Adjust the path if necessary
-// import OtherComponent from './components/OtherComponent'; // Adjust the path if necessary
-import NotFound from './components/NotFound'; // This should be correct
-
+import CandidateSearch from './pages/CandidateSearch'; 
+import NotFound from './components/NotFound';
+import About from './pages/About'; // Import the About component
+import Portfolio from './pages/Portfolio'; // Import the Portfolio component
+import Contact from './pages/Contact'; // Import the Contact component
 
 function App() {
   return (
@@ -12,10 +13,11 @@ function App() {
         <Nav />
         <main>
           <Routes>
-            <Route path="/" element={<CandidateSearch />} /> {/* This will render CandidateSearch at the root path */}
-            {/* <Route path="other-route" element={<OtherComponent />} /> Example for another route */}
-            {/* Add more routes as needed */}
-            <Route path="*" element={<NotFound />} /> {/* Catch-all route for 404 */}
+            <Route path="/" element={<CandidateSearch />} />
+            <Route path="/about" element={<About />} /> {/* Route for About page */}
+            <Route path="/portfolio" element={<Portfolio />} /> {/* Route for Portfolio page */}
+            <Route path="/contact" element={<Contact />} /> {/* Route for Contact page */}
+            <Route path="*" element={<NotFound />} /> {/* Catch-all for 404 Not Found */}
           </Routes>
           <Outlet />
         </main>
