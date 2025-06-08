@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src"], // This includes all TypeScript files in the src directory
   "references": [{ "path": "./tsconfig.node.json" }]
 }

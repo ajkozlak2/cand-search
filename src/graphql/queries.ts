@@ -41,3 +41,18 @@ export const SAVE_CANDIDATE = gql`
     }
   }
 `;
+
+// Query to get all candidates
+export const GET_CANDIDATES = gql`
+  query GetCandidates {
+    candidates {
+      id
+      name
+      location
+      email
+      html_url
+      company
+      // Add any other fields you need from the candidate object
+    }
+  }
+`;

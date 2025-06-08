@@ -1,62 +1,34 @@
-import { useState } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
-import { SEARCH_CANDIDATES, SAVE_CANDIDATE } from '../graphql/queries'; // Ensure this path is correct
-import { Candidate } from '../interfaces/Candidate.interface'; // Import the Candidate interface
+// CandidateSearch.tsx
+import { useQuery } from '@apollo/client';
+import { GET_CANDIDATES } from '../graphql/queries'; // Adjust the import based on your file structure
+import { Candidate } from '../type'; // Adjust the import path based on your project structure
 
-const CandidateSearch = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const { loading, error, data } = useQuery(SEARCH_CANDIDATES, {
-    variables: { searchTerm },
-    skip: !searchTerm, // Skip the query if searchTerm is empty
-  });
+// Define the shape of the data returned by the GET_CANDIDATES query
+interface CandidatesData {
+  candidates: Candidate[];
+}
 
-  const [saveCandidate] = useMutation(SAVE_CANDIDATE);
+function CandidateSearch() {
+  // Use the useQuery hook to fetch candidates
+  const { loading, error, data } = useQuery<CandidatesData>(GET_CANDIDATES); // Specify the type for data
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
-    // The useQuery hook will automatically trigger with the new searchTerm
-  };
-
-  const handleSaveCandidate = async (candidate: Candidate) => {
-    try {
-      await saveCandidate({ variables: { candidate } });
-      // Optionally handle success (e.g., show a notification)
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <div>
-      <h1>Candidate Search</h1>
-      <form onSubmit={handleSearch}>
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search for candidates..."
-        />
-        <button type="submit">Search</button>
-      </form>
-
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error.message}</p>}
-      {data && data.candidates.length > 0 && (
-        <div>
-          <h2>Candidate List</h2>
-          <ul>
-            {data.candidates.map((candidate: Candidate) => (
-              <li key={candidate.id}>
-                <p>Name: {candidate.name}</p>
-                <p>Username: {candidate.username}</p>
-                <button onClick={() => handleSaveCandidate(candidate)}>Save</button>
-              </li>
-            ))}
-          </ul>
+      {data?.candidates.map((candidate) => ( // Optional chaining to handle undefined data
+        <div key={candidate.id}>
+          <h3>{candidate.name}</h3>
+          {/* Render other candidate details, e.g., location, email, etc. */}
+          {candidate.location && <p>Location: {candidate.location}</p>}
+          {candidate.email && <p>Email: {candidate.email}</p>}
+          {candidate.html_url && <a href={candidate.html_url}>Profile Link</a>}
+          {candidate.company && <p>Company: {candidate.company}</p>}
         </div>
-      )}
+      ))}
     </div>
   );
-};
+}
 
 export default CandidateSearch;

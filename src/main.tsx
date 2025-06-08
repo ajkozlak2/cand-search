@@ -1,4 +1,7 @@
+// main.tsx
 import ReactDOM from 'react-dom/client';
+import { ApolloProvider } from '@apollo/client';
+import client from './apolloClient'; // Import your Apollo Client
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 
@@ -27,5 +30,9 @@ const router = createBrowserRouter([
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
-  ReactDOM.createRoot(rootElement).render(<RouterProvider router={router} />);
+  ReactDOM.createRoot(rootElement).render(
+    <ApolloProvider client={client}> {/* Wrap with ApolloProvider */}
+      <RouterProvider router={router} />
+    </ApolloProvider>
+  );
 }
