@@ -52,7 +52,7 @@ export const GET_CANDIDATES = gql`
       email
       html_url
       company
-      // Add any other fields you need from the candidate object
+      # Add any other fields you need from the candidate object
     }
   }
 `;
